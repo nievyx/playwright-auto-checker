@@ -48,4 +48,5 @@ def check_stock(product_url,headless_mode=False):
 if __name__ == "__main__":
     PRODUCT_URL = 'https://www.popmart.com/gb/products/1036/Hirono-Echo-Series-Figures' 
     stock = check_stock(PRODUCT_URL)
-    print(stock)
+    #print(stock) # Removed to avoid double logging
+
