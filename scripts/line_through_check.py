@@ -5,9 +5,13 @@ from playwright.sync_api import sync_playwright
 # PRODUCT_URL = "https://www.popmart.com/gb/products/1036/Hirono-Echo-Series-Figures"
 # PRODUCT_URL = 'https://www.popmart.com/gb/products/948/SKULLPANDA-Winter-Symphony-Series-Plush'
 
-def check_stock(product_url):
+def check_stock(product_url,headless_mode=False):
+    """Check stock status of Single Box / Whole Set. 
+    Returns dict with option name as key and boolean as value."""
+    results = {}
+
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)  # Set True to hide browser
+        browser = p.chromium.launch(headless=headless_mode)  # Set True in production
         page = browser.new_page()
         page.goto(product_url)
 
@@ -29,13 +33,19 @@ def check_stock(product_url):
             # Determine stock status
             if "index_disabledSizeTitle__" in option_classes:
                 print(f"X '{text}' is OUT of stock (disabled title)")
+                results[text] = False
             elif "index_disabled__" in parent_classes:
                 print(f"X '{text}' is OUT of stock (crossed out / parent)")
+                results[text] = False
             else:
                 print(f"'{text}' is IN stock")
+                results[text] = True
 
         browser.close()
+    
+    return results
 
 if __name__ == "__main__":
     PRODUCT_URL = 'https://www.popmart.com/gb/products/1036/Hirono-Echo-Series-Figures' 
-    check_stock(PRODUCT_URL)
+    stock = check_stock(PRODUCT_URL)
+    print(stock)
