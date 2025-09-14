@@ -18,11 +18,18 @@ The script detects whether **Single Box** or **Whole Set** options are in stock 
 
 ```
 .
-├── scripts/
-│   └── line_through_check.py   # Core stock checker script
-├── app.py                      # Runs checks for multiple products
-├── requirements.txt            # Python dependencies
-└── README.md                   # Project documentation
+
+├── .gitignore                  # Ignore virtual env, .env, etc.
+├── .env                        # Local environment variables (Twilio keys, phone number)
+├── config.py                   # Imports env variables for scripts
+├── app.py                       # Main entry point to run product checks
+├── requirements.txt             # Python dependencies
+├── README.md                    # Project documentation
+└── scripts/                     # All individual scripts
+    ├── line_through_check.py    # Core stock checker script
+    ├── detect_stock.py          # Optional/legacy stock checking
+    └── send_sms.py              # Sends SMS notifications for in-stock items
+
 ```
 
 ---
