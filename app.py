@@ -13,18 +13,47 @@ def basic_test():
 
 from scripts.line_through_check import check_stock
 
+GREEN = "\033[92m"
+RED = "\033[91m"
+RESET = "\033[0m"
+
+
 products = [
-    'https://www.popmart.com/gb/products/1064/THE-MONSTERS-Big-into-Energy-Series-Vinyl-Plush-Pendant-Blind-Box',
-    'https://www.popmart.com/gb/products/1036/Hirono-Echo-Series-Figures',
-    'https://www.popmart.com/gb/products/948/SKULLPANDA-Winter-Symphony-Series-Plush'
+    {
+        "url": "https://www.popmart.com/gb/products/1064/THE-MONSTERS-Big-into-Energy-Series-Vinyl-Plush-Pendant-Blind-Box",
+        'desired_options': ['Single Box', 'Whole Set']
+    },
+    {
+        "url": "https://www.popmart.com/gb/products/1036/Hirono-Echo-Series-Figures",
+        'desired_options': ['Whole Set']
+    },
+    {
+        "url": "https://www.popmart.com/gb/products/948/SKULLPANDA-Winter-Symphony-Series-Plush",
+        'desired_options': ['Single Box']
+    },
+    {
+        "url": "https://www.popmart.com/gb/products/641/THE-MONSTERS---Exciting-Macaron-Vinyl-Face-Blind-Box",
+        'desired_options': ['Single Box', 'Whole Set']
+    },
 ]
 
 def main():
-    for url in products:
-        print(f"\nChecking product: {url}")
-        check_stock(url)
+    for product in products:
+        url = product['url']
+        desired_options = product['desired_options']
 
-    
+        print(f"\nChecking product: {url}")
+        stock_info = check_stock(url)
+
+        for option, in_stock in stock_info.items():
+            status = 'IN STOCK' if in_stock else 'OUT OF STOCK'
+            print(f'{option}:{status}')
+
+            if option in desired_options and in_stock:
+                print(f'{GREEN}***✔ Desired option "{option}" is available! ***{RESET}')
+                # Later call a funvtion to add to cart / notify user
+
+
 
 if __name__ == '__main__':
     main()
