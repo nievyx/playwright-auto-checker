@@ -9,7 +9,8 @@ The script detects whether **Single Box** or **Whole Set** options are in stock 
 ## Features  
 - ✅ Check multiple product URLs automatically  
 - ✅ Detect whether options are **in stock** or **out of stock**  
-- ✅ Clean boolean output for easy automation later  
+- ✅ Clean boolean output for easy automation later 
+- ✅ Send SMS alerts when desired items are in stock
 - ✅ Designed to run on a local machine or Raspberry Pi  
 
 ---
