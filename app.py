@@ -1,4 +1,5 @@
 from playwright.sync_api import sync_playwright
+import datetime
 
 PRODUCT_URL = 'https://www.popmart.com/gb/products/1064/THE-MONSTERS-Big-into-Energy-Series-Vinyl-Plush-Pendant-Blind-Box'
 
@@ -53,7 +54,7 @@ def main():
     print("│ " + msg + " │")
     print("└" + "─" * (len(msg) + 2) + "┘" + RESET)
 
-    
+
     for product in products:
         url = product['url']
         name = product.get('name', get_product_name(url))
@@ -61,18 +62,29 @@ def main():
 
         print(f"\n{PURPLE}--- {name} ---{RESET}",end='')
         print(f"\nChecking product: {url}")
-        stock_info = check_stock(url)
 
-        for option, in_stock in stock_info.items():
-            status = ' IN STOCK' if in_stock else ' OUT OF STOCK'
-            status_symbol = '✅' if in_stock else '❌'
-            print(f'{status_symbol}{option}:{status}')
+        try:
+            stock_info = check_stock(url)
 
-            if option in desired_options and in_stock:
-                print(f'{GREEN}***✔ Desired option "{option}" is available! ***{RESET}')
-                # Later call a funvtion to add to cart / notify user
+            for option, in_stock in stock_info.items():
+                status = ' IN STOCK' if in_stock else ' OUT OF STOCK'
+                status_symbol = '✅' if in_stock else '❌'
+                print(f'{status_symbol}{option}:{status}')
 
+                if option in desired_options and in_stock:
+                    print(f'{GREEN}***✔ Desired option "{option}" is available! ***{RESET}')
+                    # Later call a funvtion to add to cart / notify user
+        except Exception as e:
+            print(f"{RED}Error checking stock for {name}: {e}{RESET}, continuing to next product.")
+        
+        print(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Finished checking {name}.")
+    
+    print(f"\n{BLUE}All products checked. Waiting for next cycle...{RESET}\n")
 
+import time
 
 if __name__ == '__main__':
-    main()
+    while 1:
+
+        main()
+        time.sleep(300)  # Wait 5 minutes before next check
