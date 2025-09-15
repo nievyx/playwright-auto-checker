@@ -32,13 +32,13 @@ def check_stock(product_url,headless_mode=False):
             
             # Determine stock status
             if "index_disabledSizeTitle__" in option_classes:
-                print(f"'{text}' is OUT of stock (disabled title)")
+                # print(f"'{text}' is OUT of stock (disabled title)")
                 results[text] = False
             elif "index_disabled__" in parent_classes:
-                print(f"'{text}' is OUT of stock (crossed out / parent)")
+               #  print(f"'{text}' is OUT of stock (crossed out / parent)")
                 results[text] = False
             else:
-                print(f"✅'{text}' is IN stock")
+                # print(f"✅'{text}' is IN stock")
                 results[text] = True
 
         browser.close()
