@@ -1,4 +1,4 @@
-# Labubu Checker  
+# Playwright Auto Checker
 
 A small Python application that uses [Playwright](https://playwright.dev/python/) to check stock availability of products on the [Pop Mart](https://www.popmart.com/gb) website.  
 
@@ -58,8 +58,8 @@ Here’s a screenshot of the app in action:
 
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/nievyx/labubu-checker.git
-   cd labubu-checker
+   git clone https://github.com/nievyx/playwright-auto-checker.git
+   cd project-name
    ```
 
 2. Set up a virtual environment (optional but recommended):  
@@ -91,16 +91,22 @@ python app.py
 
 Example output:  
 ```
-Checking product: https://www.popmart.com/gb/products/1036/Hirono-Echo-Series-Figures
+Checking product: https://www.<example>.com/gb/products/1036/<example>-Echo-Series-Figures
 Single Box: IN STOCK
 Whole Set: OUT OF STOCK
 ```
-
+## for SMS usage:
+Create a .env file (local only)
+```
+TWILIO_ACCOUNT_SID=your_account_sid_here
+TWILIO_AUTH_TOKEN=your_auth_token_here
+TWILIO_PHONE_NUMBER=+1234567890
+MY_PHONE_NUMBER=+0987654321
+```
 ---
 
 ## Roadmap  
 
-- [ ] Send SMS/email alerts when desired items are in stock  
 - [ ] Auto-add items to cart (experimental)  
 - [ ] Deploy on Raspberry Pi for 24/7 monitoring  
 
