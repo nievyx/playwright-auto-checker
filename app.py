@@ -46,6 +46,8 @@ def get_product_name(url: str) -> str:
     raw_name = url.rstrip("/").split("/")[-1]
     return raw_name.replace("-", " ")
 
+from scripts.send_sms import send_sms
+
 def main():
     
     msg = "Starting stock check..."
@@ -74,6 +76,9 @@ def main():
                 if option in desired_options and in_stock:
                     print(f'{GREEN}***✔ Desired option "{option}" is available! ***{RESET}')
                     # Later call a funvtion to add to cart / notify user
+                    send_sms(f'*** {name} - Desired option "{option}" is available! ***\n{url}')
+
+
         except Exception as e:
             print(f"{RED}Error checking stock for {name}: {e}{RESET}, continuing to next product.")
         
@@ -84,7 +89,8 @@ def main():
 import time
 
 if __name__ == '__main__':
-    while 1:
+    main()
+    while 0:
 
         main()
         time.sleep(300)  # Wait 5 minutes before next check
