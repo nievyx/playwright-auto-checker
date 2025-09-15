@@ -32,6 +32,13 @@ The script detects whether **Single Box** or **Whole Set** options are in stock 
 
 ```
 
+## Demo
+
+Here’s a screenshot of the app in action:
+
+![Screenshot of app](assets/Screenshot.PNG)
+
+
 ---
 
 ## Scripts Overview  
