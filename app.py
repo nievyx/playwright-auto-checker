@@ -1,9 +1,17 @@
-from playwright.sync_api import sync_playwright
+# Standard library
 import datetime
+import time
 
-PRODUCT_URL = 'https://www.popmart.com/gb/products/1064/THE-MONSTERS-Big-into-Energy-Series-Vinyl-Plush-Pendant-Blind-Box'
+# Third-party
+from playwright.sync_api import sync_playwright
+
+# Local imports
+from scripts.line_through_check import check_stock
+from scripts.send_sms import send_sms
+
 
 def basic_test():
+    PRODUCT_URL = 'https://www.popmart.com/gb/products/1064/THE-MONSTERS-Big-into-Energy-Series-Vinyl-Plush-Pendant-Blind-Box'
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
         page = browser.new_page()
@@ -12,7 +20,6 @@ def basic_test():
         page.pause() # Pause to allow user interaction
         browser.close()
 
-from scripts.line_through_check import check_stock
 
 GREEN = "\033[92m"
 BLUE = "\033[94m"
@@ -27,14 +34,14 @@ products = [
         "url": "https://www.popmart.com/gb/products/1064/THE-MONSTERS-Big-into-Energy-Series-Vinyl-Plush-Pendant-Blind-Box",
         'desired_options': ['Single Box', 'Whole Set']
     },
-    {
-        "url": "https://www.popmart.com/gb/products/1036/Hirono-Echo-Series-Figures",
-        'desired_options': ['Whole Set']
-    },
-    {
-        "url": "https://www.popmart.com/gb/products/948/SKULLPANDA-Winter-Symphony-Series-Plush",
-        'desired_options': ['Single Box']
-    },
+    # {
+    #     "url": "https://www.popmart.com/gb/products/1036/Hirono-Echo-Series-Figures",
+    #     'desired_options': []
+    # },
+    # {
+    #     "url": "https://www.popmart.com/gb/products/948/SKULLPANDA-Winter-Symphony-Series-Plush",
+    #     'desired_options': []
+    # },
     {
         "url": "https://www.popmart.com/gb/products/641/THE-MONSTERS---Exciting-Macaron-Vinyl-Face-Blind-Box",
         'desired_options': ['Single Box', 'Whole Set']
@@ -46,11 +53,12 @@ def get_product_name(url: str) -> str:
     raw_name = url.rstrip("/").split("/")[-1]
     return raw_name.replace("-", " ")
 
-from scripts.send_sms import send_sms
+
+TIME = 300  # 5 minutes
 
 def main():
     
-    msg = "Starting stock check..."
+    msg = f"Starting stock check... {'∞' if RUN_MODE else '' }"
 
     print(BLUE + "┌" + "─" * (len(msg) + 2) + "┐")
     print("│ " + msg + " │")
@@ -84,13 +92,13 @@ def main():
         
         print(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Finished checking {name}.")
     
-    print(f"\n{BLUE}All products checked. Waiting for next cycle...{RESET}\n")
+    print(f"\n{BLUE}All products checked. Waiting for next cycle... {'Starting again in '+str(TIME)+ ' seconds' if RUN_MODE else '' } {RESET}\n")
 
-import time
 
 if __name__ == '__main__':
+    RUN_MODE = 1 # Set to 1 for continuous running, 0 for single run
     main()
-    while 0:
+    while RUN_MODE:
 
         main()
-        time.sleep(300)  # Wait 5 minutes before next check
+        time.sleep(TIME)  # Wait 5 minutes before next check
