@@ -10,7 +10,7 @@ This application is currently tailored for Pop Mart
 ---
 
 ## Features  
-## Features  
+
 - ✅ Automatically check multiple product URLs  
 - ✅ Detect whether product options are **in stock** or **out of stock**  
 - ✅ Return clean boolean output for easy automation  
