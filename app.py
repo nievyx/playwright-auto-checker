@@ -1,6 +1,7 @@
 # Standard library
 import datetime
 import time
+import json #TODO: #For checking products last status, to avoid double notifications
 
 # Third-party
 from playwright.sync_api import sync_playwright
@@ -73,6 +74,15 @@ def main():
         print(f"\n{PURPLE}--- {name} ---{RESET}",end='')
         print(f"\nChecking product: {url}")
 
+        #TODO: Step 1: Load previous status # Use JSON file to store last known status to avoid double notifications
+        try:
+            with open('last_status.json', 'r') as f: #do i need 'r'
+                last_status = json.load(f)
+        except FileNotFoundError:
+            last_status = {}
+            print("[DEBUG] No previous status file found. Starting fresh.")
+
+
         try:
             stock_info = check_stock(url)
 
@@ -80,12 +90,26 @@ def main():
                 status = ' IN STOCK' if in_stock else ' OUT OF STOCK'
                 status_symbol = '✅' if in_stock else '❌'
                 print(f'{status_symbol}{option}:{status}')
+                # TODO: MORE JSON
+                prev_status = last_status.get(name, {}).get(option)
+                print(f"[DEBUG] Previous status for '{option}': {prev_status}")
 
                 if option in desired_options and in_stock:
                     print(f'{GREEN}***✔ Desired option "{option}" is available! ***{RESET}')
-                    # Later call a funvtion to add to cart / notify user
-                    send_sms(f'*** {name} - Desired option "{option}" is available! ***\n{url}')
+                    # Later call a function to add to cart / notify user
+                    # TODO: JSON logic for checking previous status to go here.
+                    if not prev_status:  # Only notify if previously out of stock or unknown
+                        send_sms(f'*** {name} - Desired option "{option}" is available! ***\n{url}')
 
+            #TODO: # Use JSON file to store last known status to avoid double notifications
+            #Step 4
+            last_status[url] = stock_info
+            print(f"{RED}[DEBUG] Updated last_status: {last_status}{RESET}")
+
+            #TODO: Step 5: Save updated status back to file
+            with open('last_status.json', 'w') as f:
+                json.dump(last_status, f, indent=4)
+                print(f"{GREEN}[DEBUG] Saved last_status to file.{RESET}")
 
         except Exception as e:
             print(f"{RED}Error checking stock for {name}: {e}{RESET}, continuing to next product.")
