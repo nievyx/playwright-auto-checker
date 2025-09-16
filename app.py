@@ -35,14 +35,14 @@ products = [
         "url": "https://www.popmart.com/gb/products/1064/THE-MONSTERS-Big-into-Energy-Series-Vinyl-Plush-Pendant-Blind-Box",
         'desired_options': ['Single Box', 'Whole Set']
     },
-    # {
-    #     "url": "https://www.popmart.com/gb/products/1036/Hirono-Echo-Series-Figures",
-    #     'desired_options': []
-    # },
-    # {
-    #     "url": "https://www.popmart.com/gb/products/948/SKULLPANDA-Winter-Symphony-Series-Plush",
-    #     'desired_options': []
-    # },
+    {
+        "url": "https://www.popmart.com/gb/products/1036/Hirono-Echo-Series-Figures",
+        'desired_options': []
+    },
+    {
+        "url": "https://www.popmart.com/gb/products/948/SKULLPANDA-Winter-Symphony-Series-Plush",
+        'desired_options': ['Single Box']
+    },
     {
         "url": "https://www.popmart.com/gb/products/641/THE-MONSTERS---Exciting-Macaron-Vinyl-Face-Blind-Box",
         'desired_options': ['Single Box', 'Whole Set']
@@ -91,15 +91,17 @@ def main():
                 status_symbol = '✅' if in_stock else '❌'
                 print(f'{status_symbol}{option}:{status}')
                 # TODO: MORE JSON
-                prev_status = last_status.get(name, {}).get(option)
+                prev_status = last_status.get(url, {}).get(option)
                 print(f"[DEBUG] Previous status for '{option}': {prev_status}")
 
                 if option in desired_options and in_stock:
                     print(f'{GREEN}***✔ Desired option "{option}" is available! ***{RESET}')
                     # Later call a function to add to cart / notify user
                     # TODO: JSON logic for checking previous status to go here.
-                    if not prev_status:  # Only notify if previously out of stock or unknown
-                        send_sms(f'*** {name} - Desired option "{option}" is available! ***\n{url}')
+                    if prev_status is None or prev_status != in_stock :  # Only notify if status changed or no previous record
+                        #TODO: DEBUG MODE - Comment out send_sms line
+                        #send_sms(f'*** {name} - Desired option "{option}" is available! ***\n{url}')
+                        print(f"{BLUE}[DEBUG] This would send SMS notification for '{option}'.{RESET}")
 
             #TODO: # Use JSON file to store last known status to avoid double notifications
             #Step 4
