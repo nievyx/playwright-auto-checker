@@ -1,8 +1,11 @@
 # Playwright Auto Checker
 
-A small Python application that uses [Playwright](https://playwright.dev/python/) to check stock availability of products on the [Pop Mart](https://www.popmart.com/gb) website.  
+A Python automation tool that monitors product stock on e-commerce sites using Playwright
+. When selected product options are available, it sends real-time SMS notifications. Designed as a personal automation project, it’s also a practical way to explore web scraping, browser automation, and notification systems.
 
-The script detects whether **Single Box** or **Whole Set** options are in stock by checking if product options are styled with a line-through (disabled).  
+
+This application is currently tailored for Pop Mart
+, where it checks the availability of Single Box and Whole Set options. Stock status is determined by detecting whether product options are styled with a line-through (indicating they’re disabled/out of stock) 
 
 ---
 
