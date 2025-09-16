@@ -10,11 +10,14 @@ This application is currently tailored for Pop Mart
 ---
 
 ## Features  
-- ✅ Check multiple product URLs automatically  
-- ✅ Detect whether options are **in stock** or **out of stock**  
-- ✅ Clean boolean output for easy automation later 
-- ✅ Send SMS alerts when desired items are in stock
-- ✅ Designed to run on a local machine or Raspberry Pi  
+## Features  
+- ✅ Automatically check multiple product URLs  
+- ✅ Detect whether product options are **in stock** or **out of stock**  
+- ✅ Return clean boolean output for easy automation  
+- ✅ Send SMS alerts when desired items are available  
+- ✅ Store and track stock status using JSON to avoid duplicate notifications  
+- ✅ Designed to run on a local machine or Raspberry Pi
+
 
 ---
 
