@@ -60,7 +60,7 @@ def get_product_name(url: str) -> str:
 TIME = 300  # 5 minutes
 DEBUG = False  # Set to 1 to enable debug prints, 0 to disable
 SMS_MODE = 0  # Set to 1 to enable SMS notifications, 0 to disable
-CART_MODE: 1  # Set to 1 to enable add to cart function, 0 to disable
+CART_MODE = 1  # Set to 1 to enable add to cart function, 0 to disable
 
 def main():
     
@@ -113,8 +113,8 @@ def main():
                         if DEBUG:
                             print(f"{BLUE}[DEBUG] This would send SMS notification for '{option}'.{RESET}")
                         
-                    #TODO:
-                    # Add to cart function can be called here
+
+                    # Add to cart function 
                     if CART_MODE:
                         add_to_cart(url)
 
