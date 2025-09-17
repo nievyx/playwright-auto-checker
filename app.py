@@ -1,6 +1,7 @@
 # Standard library
 from datetime import datetime, timedelta
 import time
+import random
 import json #For checking products last status, to avoid double notifications
 
 # Third-party
@@ -9,6 +10,7 @@ from playwright.sync_api import sync_playwright
 # Local imports
 from scripts.line_through_check import check_stock
 from scripts.send_sms import send_sms
+from scripts.add_to_cart import add_to_cart
 
 
 def basic_test():
@@ -29,24 +31,24 @@ PURPLE = "\033[95m"
 RESET = "\033[0m"
 
 
-products = [
+products = [ #Put in order of priority
+    {
+        "url": "https://www.popmart.com/gb/products/641/THE-MONSTERS---Exciting-Macaron-Vinyl-Face-Blind-Box",
+        'desired_options': ['Single Box', 'Whole Set']
+    },
     {
         "name" : "Labubu - Big into Energy",
         "url": "https://www.popmart.com/gb/products/1064/THE-MONSTERS-Big-into-Energy-Series-Vinyl-Plush-Pendant-Blind-Box",
         'desired_options': ['Single Box', 'Whole Set']
     },
-    # {
-    #     "url": "https://www.popmart.com/gb/products/1036/Hirono-Echo-Series-Figures",
-    #     'desired_options': []
-    # },
     {
-        "url": "https://www.popmart.com/gb/products/948/SKULLPANDA-Winter-Symphony-Series-Plush",
+        "url": "https://www.popmart.com/gb/products/1036/Hirono-Echo-Series-Figures",
         'desired_options': ['Single Box']
     },
-    {
-        "url": "https://www.popmart.com/gb/products/641/THE-MONSTERS---Exciting-Macaron-Vinyl-Face-Blind-Box",
-        'desired_options': ['Single Box', 'Whole Set']
-    },
+    # {
+    #     "url": "https://www.popmart.com/gb/products/948/SKULLPANDA-Winter-Symphony-Series-Plush",
+    #     'desired_options': ['Single Box']
+    # },
 ]
 
 def get_product_name(url: str) -> str:
@@ -58,6 +60,7 @@ def get_product_name(url: str) -> str:
 TIME = 300  # 5 minutes
 DEBUG = False  # Set to 1 to enable debug prints, 0 to disable
 SMS_MODE = 0  # Set to 1 to enable SMS notifications, 0 to disable
+CART_MODE: 1  # Set to 1 to enable add to cart function, 0 to disable
 
 def main():
     
@@ -109,6 +112,12 @@ def main():
                             print(f"{RED}SMS_MODE is off, not sending SMS.{RESET}")
                         if DEBUG:
                             print(f"{BLUE}[DEBUG] This would send SMS notification for '{option}'.{RESET}")
+                        
+                    #TODO:
+                    # Add to cart function can be called here
+                    if CART_MODE:
+                        add_to_cart(url)
+
 
             # JSON Step 4: Use JSON file to store last known status to avoid double notifications
             last_status[url] = stock_info
@@ -124,12 +133,18 @@ def main():
         except Exception as e:
             print(f"{RED}Error checking stock for {name}: {e}{RESET}, continuing to next product.")
         
-        next_run = datetime.now() + timedelta(seconds=TIME)
-        print(f"[DEBUG] Next run scheduled at Approx {next_run.strftime('%Y-%m-%d %H:%M:%S')}")
+       
         print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Finished checking {name}.")
 
 
+    # Random delay between -30 and +30 seconds
+    random_delay = random.randint(-30, 30)
+
     print(f"\n{BLUE}All products checked. Waiting for next cycle... {'Starting again in '+str(TIME)+ ' seconds ' if RUN_MODE else '' } {RESET}\n")
+    print(f"[DEBUG] Waiting an additional {random_delay} seconds before next product check.")
+
+    next_run = datetime.now() + timedelta(seconds=TIME) + timedelta(seconds=random_delay)
+    print(f"[DEBUG] Next run scheduled at Approx {next_run.strftime('%Y-%m-%d %H:%M:%S')}")
 
 
 if __name__ == '__main__':
