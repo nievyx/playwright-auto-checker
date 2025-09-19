@@ -115,10 +115,17 @@ MY_PHONE_NUMBER=+0987654321
 
 ## Roadmap  
 
-- [ ] Deploy on Raspberry Pi for 24/7 monitoring  
+- [ ] Tailor application to run headlessly on systems like Raspberry Pi and local machines
+
 
 ---
 
 ## License  
 
-MIT License – feel free to use and modify.  
+MIT License
+
+
+Copyright (c) 2025 Nievyx
+
+
+See LICENSE file for details.
