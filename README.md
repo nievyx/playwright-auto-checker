@@ -16,6 +16,7 @@ This application is currently tailored for Pop Mart
 - ✅ Return clean boolean output for easy automation  
 - ✅ Send SMS alerts when desired items are available  
 - ✅ Store and track stock status using JSON to avoid duplicate notifications  
+- ✅ Auto-add items to cart (experimental)  
 - ✅ Designed to run on a local machine or Raspberry Pi
 
 
@@ -114,7 +115,6 @@ MY_PHONE_NUMBER=+0987654321
 
 ## Roadmap  
 
-- [ ] Auto-add items to cart (experimental)  
 - [ ] Deploy on Raspberry Pi for 24/7 monitoring  
 
 ---
