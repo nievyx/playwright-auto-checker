@@ -9,6 +9,16 @@ This application is currently tailored for Pop Mart
 
 ---
 
+## Tech Used
+
+- Python 3.11
+- JSON (for stock tracking)
+- Twilio API (SMS alerts)
+- [Playwright](https://playwright.dev/) (browser automation for monitoring stock availability)
+- python-dotenv (manage environment variables securely)
+- Git & GitHub (version control)
+
+---
 ## Features  
 
 - ✅ Automatically check multiple product URLs  
