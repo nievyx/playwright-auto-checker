@@ -1,25 +1,59 @@
-# Playwright Auto Checker
+# Playwright Auto Checker ![version](https://img.shields.io/badge/version-0.1.0-blue)  ![python](https://img.shields.io/badge/python-3.11-blue?logo=python)  ![playwright](https://img.shields.io/badge/Playwright-Automation-brightgreen?logo=microsoftedge)  ![twilio](https://img.shields.io/badge/SMS-Twilio-red?logo=twilio)  ![license](https://img.shields.io/badge/license-MIT-green)  ![status](https://img.shields.io/badge/status-Alpha-orange)
+
+
 
 A Python automation tool that monitors product stock on e-commerce sites using Playwright
-. When selected product options are available, it sends real-time SMS notifications. Designed as a personal automation project, it’s also a practical way to explore web scraping, browser automation, and notification systems.
+. When selected product options become available, it sends real-time SMS notifications.
 
-
-This application is currently tailored for Pop Mart
-, where it checks the availability of Single Box and Whole Set options. Stock status is determined by detecting whether product options are styled with a line-through (indicating they’re disabled/out of stock) 
+This project is currently tailored for Pop Mart, where it checks the availability of Single Box and Whole Set options. Stock status is determined by detecting whether product options are styled with a line-through (indicating they are out of stock). 
 
 ---
+## Table of Contents
 
-## Tech Used
+<!-- vscode-markdown-toc -->
+* 1. [Project Status](#ProjectStatus)
+* 2. [Tech Used](#TechUsed)
+* 3. [Features](#Features)
+* 4. [Project Structure](#ProjectStructure)
+* 5. [Demo](#Demo)
+* 6. [Scripts Overview](#ScriptsOverview)
+* 7. [Installation](#Installation)
+* 8. [Usage](#Usage)
+* 9. [Configure SMS](#ConfigureSMS)
+* 10. [Roadmap](#Roadmap)
+* 11. [License](#License)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+##  1. <a name='ProjectStatus'></a>Project Status
+
+**Current Version:** `0.1.0` (Alpha)
+
+This release is functional on local machines and demonstrates the core features of the project.  
+Headless support and deployment testing on Raspberry Pi are not yet implemented.  
+
+Planned improvements:
+- Add headless mode for Raspberry Pi deployment.
+- Expand automated testing.
+- Refine documentation and usage examples.
+
+---
+##  2. <a name='TechUsed'></a>Tech Used
 
 - Python 3.11
-- JSON (for stock tracking)
 - Twilio API (SMS alerts)
 - [Playwright](https://playwright.dev/) (browser automation for monitoring stock availability)
 - python-dotenv (manage environment variables securely)
+- JSON (simple local persistence for stock tracking)
 - Git & GitHub (version control)
-
 ---
-## Features  
+
+
+##  3. <a name='Features'></a>Features  
 
 - ✅ Automatically check multiple product URLs  
 - ✅ Detect whether product options are **in stock** or **out of stock**  
@@ -32,7 +66,7 @@ This application is currently tailored for Pop Mart
 
 ---
 
-## Project Structure  
+##  4. <a name='ProjectStructure'></a>Project Structure  
 
 ```
 .
@@ -50,7 +84,7 @@ This application is currently tailored for Pop Mart
 
 ```
 
-## Demo
+##  5. <a name='Demo'></a>Demo
 
 Here’s a screenshot of the app in action:
 
@@ -59,7 +93,7 @@ Here’s a screenshot of the app in action:
 
 ---
 
-## Scripts Overview  
+##  6. <a name='ScriptsOverview'></a>Scripts Overview  
 
 - **`app.py`**  
   Main entry point. Iterates through a list of product URLs and prints stock availability for each.  
@@ -72,7 +106,7 @@ Here’s a screenshot of the app in action:
 
 ---
 
-## Installation  
+##  7. <a name='Installation'></a>Installation  
 
 1. Clone the repository:  
    ```bash
@@ -95,7 +129,7 @@ Here’s a screenshot of the app in action:
 
 ---
 
-## Usage  
+##  8. <a name='Usage'></a>Usage  
 
 Run a stock check on a single product:  
 ```bash
@@ -113,7 +147,7 @@ Checking product: https://www.<example>.com/gb/products/1036/<example>-Echo-Seri
 Single Box: IN STOCK
 Whole Set: OUT OF STOCK
 ```
-## for SMS usage:
+##  9. <a name='ConfigureSMS:'></a>Configure SMS:
 Create a .env file (local only)
 ```
 TWILIO_ACCOUNT_SID=your_account_sid_here
@@ -123,14 +157,15 @@ MY_PHONE_NUMBER=+0987654321
 ```
 ---
 
-## Roadmap  
+##  10. <a name='Roadmap'></a>Roadmap  
 
 - [ ] Tailor application to run headlessly on systems like Raspberry Pi and local machines
+- [ ] Add Discord as message option
 
 
 ---
 
-## License  
+##  11. <a name='License'></a>License  
 
 MIT License
 
