@@ -137,15 +137,30 @@ def main():
         print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Finished checking {name}.")
 
 
+
     # Random delay between -30 and +30 seconds
     random_delay = random.randint(-30, 30)
 
-    print(f"\n{BLUE}All products checked. Waiting for next cycle... {'Starting again in '+str(TIME)+ ' seconds ' if RUN_MODE else '' } {RESET}\n")
-    print(f"[DEBUG] Waiting an additional {random_delay} seconds before next product check.")
+    # Total wait time for next run
+    total_wait = TIME + random_delay
+    # Calculate and display next run time
+    next_run = datetime.now() + timedelta(seconds=TIME + random_delay)
+    start_again_msg = (f"Next run scheduled at approx. {next_run.strftime('%Y-%m-%d %H:%M:%S')}")
 
-    next_run = datetime.now() + timedelta(seconds=TIME) + timedelta(seconds=random_delay)
-    print(f"[DEBUG] Next run scheduled at Approx {next_run.strftime('%Y-%m-%d %H:%M:%S')}")
 
+    # Main status message
+    status_msg = (
+        f"\n{BLUE}All products checked. "
+        f"{'Starting again in ' + str(total_wait) + ' seconds. ' + start_again_msg if RUN_MODE else '' }"
+        f"{RESET}\n"
+    )
+
+    # Debug messages
+    print(f"\n[DEBUG] Waiting an additional {random_delay} seconds before next product check.")
+
+
+
+    print(status_msg)
 
 if __name__ == '__main__':
     RUN_MODE = 1 # Set to 1 for continuous running, 0 for single run
