@@ -41,10 +41,10 @@ products = [ #Put in order of priority
         "url": "https://www.popmart.com/gb/products/1064/THE-MONSTERS-Big-into-Energy-Series-Vinyl-Plush-Pendant-Blind-Box",
         'desired_options': ['Single Box', 'Whole Set']
     },
-    {
-        "url": "https://www.popmart.com/gb/products/1036/Hirono-Echo-Series-Figures",
-        'desired_options': ['Single Box']
-    },
+    # {
+    #     "url": "https://www.popmart.com/gb/products/1036/Hirono-Echo-Series-Figures",
+    #     'desired_options': ['Single Box']
+    # },
     # {
     #     "url": "https://www.popmart.com/gb/products/948/SKULLPANDA-Winter-Symphony-Series-Plush",
     #     'desired_options': ['Single Box']
@@ -103,7 +103,7 @@ def main():
 
                 if option in desired_options and in_stock:
                     print(f'{GREEN}***✔ Desired option "{option}" is available! ***{RESET}')
-                    # Later call a function to add to cart / notify user
+                    # Later call a function to add to cart / notify user ✔
                     
                     if prev_status is None or prev_status != in_stock :  # Only notify if status changed or no previous record
                         if SMS_MODE:
@@ -149,7 +149,7 @@ def main():
 
 if __name__ == '__main__':
     RUN_MODE = 1 # Set to 1 for continuous running, 0 for single run
-    main()
+    main() # This will run then without a cooldown aftwards  (it'll run again imediately.)
     
     while RUN_MODE:
 
